@@ -27,9 +27,16 @@ let hiddenNum = document.querySelector('.number');
 
 let score = 20;
 let scoreUpdate = document.querySelector('.score');
+let mainTitle = document.getElementById("main-title");
+let background = document.body.style;
+let number;
 
-
-const number = Math.trunc(Math.random() * 20) + 1;
+function numberGen() {
+  number = Math.trunc(Math.random() * 20) + 1;
+  return number;
+}
+numberGen();
+console.log(number);
 // hiddenNum.textContent = String(number);
 
 /* for variable guess, if outside of the click event handler, it runs ONLY once, 
@@ -46,30 +53,47 @@ document.querySelector('.check').addEventListener('click', function () {
 
   } else if (guess < 0 || guess > 20) {
     message.textContent = "Your number is not within range!";
+
   } else if (guess === 0) {
     message.textContent = "Your guess has to be greater than 0";
+
   } else if (guess < number) {
     message.textContent = "Your guess is too low!";
     score--;
     console.log(score);
     scoreUpdate.textContent = score;
+
   } else if (guess > number) {
     message.textContent = "Your guess is too high!";
     score--;
     console.log(score);
     scoreUpdate.textContent = String(score);
+
   } else if (guess === number) {
     message.textContent = "You've guessed correctly!";
     score++;
     hiddenNum.textContent = String(number);
     scoreUpdate.textContent = String(score);
-    document.getElementById("main-title").textContent = "Congratulations!";
-    document.body.style.backgroundColor = '#228B22';
+    mainTitle.textContent = "Congratulations!";
+    background.backgroundColor = '#228B22';
     // testing to see if it'll push to main branch
-  }; 
+  };
 });
 
-// function correct() {
-//   document.getElementById("main-title").textContent = "Congratulations!";
-//   document.body.style.backgroundColor = '#228B22';
-// }
+/*Task for today: code the reset button
+  1. Class for the reset button: "btn again"
+  2. For event handler, reset function should set everything to zero
+  3. Should restore to original background colour of #222
+*/
+
+//Reset button
+document.querySelector('.again').addEventListener('click', function () {
+  document.querySelector('.guess').value = "";
+  numberGen();
+  hiddenNum.textContent = "?";
+  background.backgroundColor = "#222";
+  message.textContent = "Start guessing...";
+  mainTitle.textContent = "Guess My Number!";
+  score = 20;
+  scoreUpdate.textContent = String(score);
+})
