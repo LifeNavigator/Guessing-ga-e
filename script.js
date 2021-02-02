@@ -1,22 +1,4 @@
 'use strict';
-/* Plan for this:
- 1. Create new variables with DOM selectors this would be for
-   - between text
-   - Score (class: score )
-   - Button reset (class: btn again)
-   - Button submit (class: .btn check)
-   - input field (Class: guess)
-   - number reveal box  (class: number)
-
-2. Create a random number generator that generates numbers between 1 -20
-3. Loops for which if entered guess != number a message is given
-  - checks if condition is a number
-  - check for negatives 
-  - checks for smaller or bigger
-
-4. New variable that keeps track of score.
- */
-
 
 let message = document.querySelector('.message');
 let userNum = document.querySelector('.guess').value;
@@ -30,6 +12,8 @@ let scoreUpdate = document.querySelector('.score');
 let mainTitle = document.getElementById("main-title");
 let background = document.body.style;
 let number;
+let highScore = 0;
+//document.querySelector('.highscore')
 
 function numberGen() {
   number = Math.trunc(Math.random() * 20) + 1;
@@ -61,7 +45,7 @@ document.querySelector('.check').addEventListener('click', function () {
     message.textContent = "Your guess is too low!";
     score--;
     console.log(score);
-    scoreUpdate.textContent = score;
+    scoreUpdate.textContent = String(score);
 
   } else if (guess > number) {
     message.textContent = "Your guess is too high!";
@@ -76,15 +60,9 @@ document.querySelector('.check').addEventListener('click', function () {
     scoreUpdate.textContent = String(score);
     mainTitle.textContent = "Congratulations!";
     background.backgroundColor = '#228B22';
-    // testing to see if it'll push to main branch
+    highestScore();
   };
 });
-
-/*Task for today: code the reset button
-  1. Class for the reset button: "btn again"
-  2. For event handler, reset function should set everything to zero
-  3. Should restore to original background colour of #222
-*/
 
 //Reset button
 document.querySelector('.again').addEventListener('click', function () {
@@ -97,3 +75,14 @@ document.querySelector('.again').addEventListener('click', function () {
   score = 20;
   scoreUpdate.textContent = String(score);
 })
+
+//highscore function
+
+function highestScore() {
+  if (score > highScore) {
+    highScore = score;
+    let updateHighscore = document.querySelector('.highscore');
+    updateHighscore.textContent = highScore;
+    console.log(highScore)
+  }
+}
