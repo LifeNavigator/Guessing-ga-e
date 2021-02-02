@@ -20,8 +20,6 @@ function numberGen() {
   return number;
 }
 numberGen();
-console.log(number);
-// hiddenNum.textContent = String(number);
 
 /* for variable guess, if outside of the click event handler, it runs ONLY once, 
 when the page loads. So when the user clicks, there is no value yet and there 
@@ -38,17 +36,8 @@ document.querySelector('.check').addEventListener('click', function () {
   } else if (guess < 0 || guess > 20) {
     message.textContent = "Your number is not within range!";
 
-  } else if (guess === 0) {
-    message.textContent = "Your guess has to be greater than 0";
-
-  } else if (guess < number) {
-    message.textContent = "Your guess is too low!";
-    score--;
-    console.log(score);
-    scoreUpdate.textContent = String(score);
-
-  } else if (guess > number) {
-    message.textContent = "Your guess is too high!";
+  } else if (guess < number || guess > number) {
+    message.textContent = guess < number ? "Your guess is too low!" : "Your guess is too high!";
     score--;
     console.log(score);
     scoreUpdate.textContent = String(score);
